@@ -9,6 +9,9 @@ import pygame
 from constants import *
 from player import *
 
+# Import logger
+from logger import log_state
+
 def main():
     print("Starting Asteroids!")
     print(f"Screen width: {SCREEN_WIDTH}")
@@ -16,6 +19,9 @@ def main():
    
     # Initializing Pygame
     pygame.init()
+
+    # Initializing Logger
+
 
     # Initializing Player
     player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
@@ -34,6 +40,7 @@ def main():
         for event in pygame.event.get():    # This will check if the the user has
             if event.type == pygame.QUIT:   # closed the window and close the game
                 return
+        log_state()
         screen.fill((0, 0, 0)) # Fill the Screen with Black
 
         # Draw the player
