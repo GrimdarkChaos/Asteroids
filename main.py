@@ -32,7 +32,6 @@ def main():
     # Game variables
     running = True
     clock = pygame.time.Clock()
-    fps = 60
     dt = 0
 
     # Game Loop
@@ -43,15 +42,15 @@ def main():
         log_state()
         screen.fill((0, 0, 0)) # Fill the Screen with Black
 
+        # Update the Player
+        player.update(dt)
+
         # Draw the player
         player.draw(screen)
 
-        # Update the Player
-        player.update(dt)
-        
         pygame.display.flip()  # Update the full display Surface to the screen
         
-        clock.tick(fps) # Set the FPS
+        dt = clock.tick(60) / 1000 # Set the FPS
 
 if __name__ == "__main__":
     main()
