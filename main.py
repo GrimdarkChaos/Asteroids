@@ -33,7 +33,7 @@ def main():
     Player.containers = (updatable, drawable)
     Asteroid.containers = (asteroids, updatable, drawable)
     AsteroidField.containers = updatable
-    Shot.containers = shots
+    Shot.containers = (shots, updatable, drawable)
 
 
     # Initializing Player
