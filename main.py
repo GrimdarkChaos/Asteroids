@@ -20,11 +20,15 @@ def main():
     # Initializing Pygame
     pygame.init()
 
-    # Initializing Logger
-
+    # Creating groups
+    updatable = pygame.sprite.Group()
+    drawable = pygame.sprite.Group()
+    
+    # Adding player to groups
+    Player.containers = (updatable, drawable)
 
     # Initializing Player
-    player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
+    Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
 
     # Set up screen dimensions
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -39,14 +43,17 @@ def main():
         for event in pygame.event.get():    # This will check if the the user has
             if event.type == pygame.QUIT:   # closed the window and close the game
                 return
-        log_state()
+        
+        log_state() # Initializing Logger
+        
         screen.fill((0, 0, 0)) # Fill the Screen with Black
 
-        # Update the Player
-        player.update(dt)
+        # Update the Group
+        updatable.update(dt)
 
-        # Draw the player
-        player.draw(screen)
+        # Draw the Group
+        for sprite in drawable:
+            sprite.draw(screen)
 
         pygame.display.flip()  # Update the full display Surface to the screen
         
