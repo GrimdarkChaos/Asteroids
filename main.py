@@ -2,6 +2,7 @@
 # the open-source pygame library
 # throughout this file
 import pygame
+import sys
 
 # import everything from the modules
 # constants.py and player.py into the 
@@ -12,7 +13,7 @@ from asteroid import Asteroid
 from asteroidfield import AsteroidField
 
 # Import logger
-from logger import log_state
+from logger import log_state, log_event
 
 def main():
     print("Starting Asteroids!")
@@ -33,8 +34,8 @@ def main():
     AsteroidField.containers = updatable
 
     # Initializing Player
-    Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
-    AsteroidField()
+    player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
+    asteroid_field = AsteroidField()
 
     # Set up screen dimensions
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -56,6 +57,13 @@ def main():
 
         # Update the Group
         updatable.update(dt)
+
+        # Check for collisions
+        for asteroid in asteroids:
+            if asteroid.detect_collision(player):
+                log_event("player_hit")
+                print("Game over!")
+                sys.exit()
 
         # Draw the Group
         for sprite in drawable:
