@@ -8,6 +8,7 @@ import pygame
 # into the current file
 from constants import *
 from circleshape import *
+from shot import Shot
 
 class Player(CircleShape):
     def __init__(self, x, y):
@@ -49,3 +50,9 @@ class Player(CircleShape):
     def move(self,dt):
         forward = pygame.Vector2(0, 1).rotate(self.rotation)
         self.position += forward * PLAYER_SPEED * dt
+
+    def shoot(self, PLAYER_SHOOT_SPEED):
+        shot = Shot()
+        shot.velocity = pygame.Vector2(0, 1)
+        shot.rotate()
+        shot.velocity *= PLAYER_SHOOT_SPEED
