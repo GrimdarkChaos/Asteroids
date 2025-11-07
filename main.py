@@ -73,7 +73,7 @@ def main():
             for shot in shots:
                 if asteroid.detect_collision(shot):
                     log_event("asteroid_shot")
-                    asteroid.kill()
+                    asteroid.split()
                     shot.kill()
 
         # Draw the Group
