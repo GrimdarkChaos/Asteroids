@@ -61,12 +61,20 @@ def main():
         # Update the Group
         updatable.update(dt)
 
-        # Check for collisions
+        # Check for player collision
         for asteroid in asteroids:
             if asteroid.detect_collision(player):
                 log_event("player_hit")
                 print("Game over!")
                 sys.exit()
+
+        # Check for asteroid hit
+        for asteroid in asteroids:
+            for shot in shots:
+                if asteroid.detect_collision(shot):
+                    log_event("asteroid_shot")
+                    asteroid.kill()
+                    shot.kill()
 
         # Draw the Group
         for sprite in drawable:
