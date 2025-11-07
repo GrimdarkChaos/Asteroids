@@ -38,15 +38,19 @@ def main():
 
     # Initializing Player
     player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
-    asteroid_field = AsteroidField()
+    AsteroidField() # Initialize asteroid field
+    pygame.font.init() # Initialize font module
 
     # Set up screen dimensions
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    pygame.display.set_caption("Asteroids!")
 
     # Game variables
     running = True
     clock = pygame.time.Clock()
+    font = pygame.font.SysFont("Arial", 30) # Use Arial font, size 30
     dt = 0
+    player_score = 0
 
     # Game Loop
     while running:
@@ -58,6 +62,9 @@ def main():
         
         screen.fill((0, 0, 0)) # Fill the Screen with Black
 
+        score_text_surface = font.render(f"Score: {player_score}", True, (255, 255, 255))
+        screen.blit(score_text_surface, (10, 10))
+
         # Update the Group
         updatable.update(dt)
 
@@ -66,6 +73,7 @@ def main():
             if asteroid.detect_collision(player):
                 log_event("player_hit")
                 print("Game over!")
+                print(f"Final Score: {player_score}")
                 sys.exit()
 
         # Check for asteroid hit
@@ -75,6 +83,7 @@ def main():
                     log_event("asteroid_shot")
                     asteroid.split()
                     shot.kill()
+                    player_score += ASTEROID_KILL_POINTS
 
         # Draw the Group
         for sprite in drawable:
